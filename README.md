@@ -1,3 +1,5 @@
+[![MseeP.ai Security Assessment Badge](https://mseep.net/pr/wanikua-danghuangshang-badge.png)](https://mseep.ai/app/wanikua-danghuangshang)
+
 [English Version](./README_EN.md) | [日本語版](./README_JA.md) | [🏢 企业版 Become CEO (English)](https://github.com/wanikua/become-ceo) | [🔧 天工开物 TianGong (Terminal版)](https://github.com/wanikua/tiangong) | [🌐 官网](https://danghuangshang.com) | [📚 完整文档](./docs/README.md)
 
 > **⚠️ 维权声明 / Originality Notice**
