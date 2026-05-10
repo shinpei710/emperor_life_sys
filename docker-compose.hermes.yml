@@ -1,0 +1,87 @@
+# =============================================================================
+# danghuangshang × Hermes Agent — docker-compose
+# =============================================================================
+# 用法:
+#   1. 先克隆 Hermes 源码:
+#        git clone https://github.com/NousResearch/hermes-agent ~/repos/hermes-agent
+#   2. 准备本机 ~/.hermes:
+#        cp hermes.example.yaml ~/.hermes/config.yaml
+#        cp configs/hermes/env.example ~/.hermes/.env
+#        cp configs/hermes/personalities/*.md ~/.hermes/personalities/
+#   3. 启动:
+#        HERMES_UID=$(id -u) HERMES_GID=$(id -g) HERMES_REPO=~/repos/hermes-agent \
+#          docker compose -f docker-compose.hermes.yml up -d
+#
+# 注意:
+#   - dashboard 默认绑 127.0.0.1,仅本机可访问;放公网请套反代加鉴权。
+#   - 这套 compose 与 docker-compose.yml(OpenClaw 路线)互不冲突,可两个一起跑。
+# =============================================================================
+
+services:
+  hermes-gateway:
+    build:
+      context: ${HERMES_REPO:-../hermes-agent}
+      dockerfile: Dockerfile
+    image: hermes-agent:danghuangshang
+    container_name: danghuangshang-hermes
+    restart: unless-stopped
+    network_mode: host
+
+    # 持久化 ~/.hermes(配置 + personalities + memory + .env)
+    volumes:
+      - ~/.hermes:/opt/data
+      # 把 danghuangshang personalities 直接挂进去(可选,如果你已经 cp 过去就不需要)
+      # - ./configs/hermes/personalities:/opt/data/personalities:ro
+
+    environment:
+      - HERMES_UID=${HERMES_UID:-10000}
+      - HERMES_GID=${HERMES_GID:-10000}
+      - TZ=${TZ:-Asia/Shanghai}
+
+    command: ["gateway", "run"]
+
+    logging:
+      driver: json-file
+      options:
+        max-size: "50m"
+        max-file: "3"
+
+    # 健康检查 — Hermes gateway 启动后 dashboard 的 /healthz
+    healthcheck:
+      test: ["CMD", "curl", "-fs", "http://127.0.0.1:8765/healthz"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 90s
+
+    deploy:
+      resources:
+        limits:
+          memory: 4G
+          cpus: '2.0'
+        reservations:
+          memory: 1G
+          cpus: '0.5'
+
+    security_opt:
+      - no-new-privileges:true
+
+  hermes-dashboard:
+    image: hermes-agent:danghuangshang
+    container_name: danghuangshang-hermes-dashboard
+    restart: unless-stopped
+    depends_on:
+      - hermes-gateway
+    network_mode: host
+    volumes:
+      - ~/.hermes:/opt/data
+    environment:
+      - HERMES_UID=${HERMES_UID:-10000}
+      - HERMES_GID=${HERMES_GID:-10000}
+    # 仅本机可达,改 0.0.0.0 务必同时设置反代鉴权
+    command: ["dashboard", "run", "--host", "127.0.0.1", "--port", "8765"]
+
+# 注:hermes 用 network_mode: host,所以不需要显式 ports / networks 段。
+# 如果你想跑 bridge 模式,把 network_mode: host 删掉,加:
+# ports:
+#   - "127.0.0.1:8765:8765"

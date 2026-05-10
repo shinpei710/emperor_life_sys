@@ -322,76 +322,91 @@
         "zhongshusheng": {
           "name": "中书省",
           "token": "YOUR_ZHONGSHUSHENG_BOT_TOKEN",
+          "applicationId": "YOUR_ZHONGSHUSHENG_APPLICATION_ID",
           "groupPolicy": "open"
         },
         "menxiasheng": {
           "name": "门下省",
           "token": "YOUR_MENXIASHENG_BOT_TOKEN",
+          "applicationId": "YOUR_MENXIASHENG_APPLICATION_ID",
           "groupPolicy": "open"
         },
         "shangshusheng": {
           "name": "尚书省",
           "token": "YOUR_SHANGSHUSHENG_BOT_TOKEN",
+          "applicationId": "YOUR_SHANGSHUSHENG_APPLICATION_ID",
           "groupPolicy": "open"
         },
         "yushitai": {
           "name": "御史台",
           "token": "YOUR_YUSHITAI_BOT_TOKEN",
+          "applicationId": "YOUR_YUSHITAI_APPLICATION_ID",
           "groupPolicy": "open"
         },
         "bingbu": {
           "name": "兵部",
           "token": "YOUR_BINGBU_BOT_TOKEN",
+          "applicationId": "YOUR_BINGBU_APPLICATION_ID",
           "groupPolicy": "open"
         },
         "hubu": {
           "name": "户部",
           "token": "YOUR_HUBU_BOT_TOKEN",
+          "applicationId": "YOUR_HUBU_APPLICATION_ID",
           "groupPolicy": "open"
         },
         "libu": {
           "name": "礼部",
           "token": "YOUR_LIBU_BOT_TOKEN",
+          "applicationId": "YOUR_LIBU_APPLICATION_ID",
           "groupPolicy": "open"
         },
         "gongbu": {
           "name": "工部",
           "token": "YOUR_GONGBU_BOT_TOKEN",
+          "applicationId": "YOUR_GONGBU_APPLICATION_ID",
           "groupPolicy": "open"
         },
         "libu2": {
           "name": "吏部",
           "token": "YOUR_LIBU2_BOT_TOKEN",
+          "applicationId": "YOUR_LIBU2_APPLICATION_ID",
           "groupPolicy": "open"
         },
         "xingbu": {
           "name": "刑部",
           "token": "YOUR_XINGBU_BOT_TOKEN",
+          "applicationId": "YOUR_XINGBU_APPLICATION_ID",
           "groupPolicy": "open"
         },
         "hanlin_zhang": {
           "name": "翰林院·掌院学士",
           "token": "YOUR_HANLIN_ZHANG_BOT_TOKEN",
+          "applicationId": "YOUR_HANLIN_ZHANG_APPLICATION_ID",
           "groupPolicy": "open"
         },
         "hanlin_xiuzhuan": {
           "name": "翰林院·修撰",
           "token": "YOUR_HANLIN_XIUZHUAN_BOT_TOKEN",
+          "applicationId": "YOUR_HANLIN_XIUZHUAN_APPLICATION_ID",
           "groupPolicy": "open"
         },
         "hanlin_bianxiu": {
           "name": "翰林院·编修",
           "token": "YOUR_HANLIN_BIANXIU_BOT_TOKEN",
+          "applicationId": "YOUR_HANLIN_BIANXIU_APPLICATION_ID",
           "groupPolicy": "open"
         },
         "hanlin_jiantao": {
           "name": "翰林院·检讨",
           "token": "YOUR_HANLIN_JIANTAO_BOT_TOKEN",
+          "applicationId": "YOUR_HANLIN_JIANTAO_APPLICATION_ID",
           "groupPolicy": "open"
         },
         "hanlin_shujishi": {
           "name": "翰林院·庶吉士",
           "token": "YOUR_HANLIN_SHUJISHI_BOT_TOKEN",
+          "applicationId": "YOUR_HANLIN_SHUJISHI_APPLICATION_ID",
           "groupPolicy": "open"
         }
       },

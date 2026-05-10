@@ -1,5 +1,35 @@
 # 📜 Changelog
 
+## v3.7.0 (2026-05-10)
+
+### 新功能 — 双 Agent Runtime 并行
+
+- **新增 Hermes Agent 并行 runtime 支持** — 与 OpenClaw 平行,同一套 14 Agent 朝廷设定可两边任选其一或并存
+  - `hermes.example.yaml` — Hermes 配置模板,字段对齐 v0.13.0 (v2026.5.7)
+  - `EXTERNAL_HERMES.md` — 安装、token 注入、personality 映射、故障排除
+  - `install-hermes.sh` — Hermes 一键安装脚本(平行于 install-lite.sh)
+  - `docker-compose.hermes.yml` — Hermes 容器编排,与 OpenClaw compose 互不冲突
+  - `configs/hermes/env.example` — 多 provider 环境变量模板
+  - `configs/hermes/personalities/` — 司礼监 / 内阁 / 都察院 三个核心角色,完整 14 角色可用 `hermes claw migrate` 自动迁移
+
+### OpenClaw 适配 v2026.5.7
+
+- **补齐所有 Discord 账号 `applicationId` 字段** — 67 处遗漏统一补全
+  - `openclaw.example.json` (15 处)
+  - `configs/tang-sansheng/openclaw.json` (14 处)
+  - `configs/feishu/openclaw.json` (19 处)
+  - `configs/ming-neige/openclaw.json` (19 处)
+  - 上游 OpenClaw 自 v3.5.3 起在 Discord slash 命令注册时强制要求该字段
+- **`install-lite.sh` Discord 流程新增 Application ID 输入** — 配套 sed 替换 `YOUR_SILIJIAN_APPLICATION_ID` / `YOUR_DISCORD_SERVER_ID`,内嵌模板补 `applicationId`
+
+### 文档
+
+- `README.md` — 快速开始新增"方式四:用 Hermes Agent runtime"
+- `PROJECTS.md` — 相关仓库表新增 Hermes Agent
+- `package.json` — keywords 增加 `hermes-agent`、`nous-research`
+
+---
+
 ## v3.5.3 (2026-03-19)
 
 ### 新功能

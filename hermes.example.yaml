@@ -1,0 +1,111 @@
+# =============================================================================
+# danghuangshang × Hermes Agent — 配置示例
+# =============================================================================
+# Hermes Agent (https://github.com/NousResearch/hermes-agent) 是 OpenClaw 的
+# 平行 runtime,本项目同时支持两套 runtime:
+#   - OpenClaw 路线 → 使用 openclaw.example.json + `openclaw gateway start`
+#   - Hermes 路线  → 使用本文件 + `hermes` / `hermes gateway start`
+#
+# 配置文件落点:
+#   ~/.hermes/config.yaml          (主配置,即本文件 copy 后)
+#   ~/.hermes/.env                 (各平台 token / API key)
+#   ~/.hermes/personalities/*.md   (司礼监、内阁等角色提示词)
+#   ~/.hermes/context/AGENTS.md    (整个朝廷的全局 system prompt)
+#
+# 版本对齐: Hermes Agent v0.13.0 (v2026.5.7) 起的 schema。
+# 官方完整字段: https://hermes-agent.nousresearch.com/docs/user-guide/configuration
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# 模型 — 选你已有 key 的提供商之一
+# -----------------------------------------------------------------------------
+model:
+  default: "anthropic/claude-opus-4.6"
+
+  # provider 可选: auto / openrouter / nous / nous-api / anthropic /
+  #   openai-codex / copilot / gemini / zai / kimi-coding / minimax /
+  #   minimax-cn / huggingface / nvidia / xiaomi / arcee / ollama-cloud /
+  #   kilocode / ai-gateway / lmstudio / custom
+  provider: "auto"
+
+  # 国内常见: 把 base_url 改成你自己的 OpenAI 兼容网关
+  # base_url: "https://your-llm-provider-api-url"
+
+# -----------------------------------------------------------------------------
+# 终端后端 — 朝廷的"工部"在哪儿干活
+# -----------------------------------------------------------------------------
+# 选项: local / docker / ssh / singularity / modal / daytona
+# 推荐生产用 docker,本地试用用 local。
+terminal:
+  backend: "local"
+  cwd: "."
+  timeout: 180
+  lifetime_seconds: 300
+
+# -----------------------------------------------------------------------------
+# Git Worktree 隔离 — 多 Agent 并发写同一仓库时强烈建议开
+# -----------------------------------------------------------------------------
+worktree: true
+
+# -----------------------------------------------------------------------------
+# 上下文压缩 — 长会话不爆 context
+# -----------------------------------------------------------------------------
+compression:
+  enabled: true
+  threshold: 0.50
+  target_ratio: 0.20
+  protect_last_n: 20
+
+# -----------------------------------------------------------------------------
+# 持久记忆 — MEMORY.md(agent 笔记) + USER.md(用户画像)
+# -----------------------------------------------------------------------------
+memory:
+  memory_enabled: true
+  user_profile_enabled: true
+  memory_char_limit: 2200
+  user_char_limit: 1375
+  nudge_interval: 10
+  flush_min_turns: 6
+
+# -----------------------------------------------------------------------------
+# 群聊会话隔离 — 朝廷议事时,每个大臣开独立 session,避免互相串台
+# -----------------------------------------------------------------------------
+group_sessions_per_user: true
+
+# -----------------------------------------------------------------------------
+# 会话自动重置策略
+# -----------------------------------------------------------------------------
+session_reset:
+  mode: both         # both / idle / daily / none
+  idle_minutes: 1440 # 24 小时无活动重置
+  at_hour: 4         # 每日凌晨 4 点重置
+
+# -----------------------------------------------------------------------------
+# 工具循环防呆 — 防止某 Agent 卡住反复调用同一工具
+# -----------------------------------------------------------------------------
+tool_loop_guardrails:
+  warnings_enabled: true
+  hard_stop_enabled: false
+
+# -----------------------------------------------------------------------------
+# 频道 / 平台 token
+# -----------------------------------------------------------------------------
+# Hermes 不在 YAML 里写 token,而是放 ~/.hermes/.env
+# 例:
+#   DISCORD_BOT_TOKEN=...
+#   DISCORD_APPLICATION_ID=...
+#   TELEGRAM_BOT_TOKEN=...
+#   SLACK_APP_TOKEN=...
+#   SLACK_BOT_TOKEN=...
+#   FEISHU_APP_ID=...
+#   FEISHU_APP_SECRET=...
+#
+# 配完后跑:
+#   hermes gateway setup    # 交互式开各平台
+#   hermes gateway start    # 启动统一网关
+#
+# 单 channel 限频:
+# allowed_channels:
+#   - "C0000000000"
+# allowed_chats:
+#   - 123456789

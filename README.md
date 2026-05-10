@@ -153,6 +153,14 @@ bash <(curl -fsSL https://raw.githubusercontent.com/wanikua/danghuangshang/main/
 
 > ⚠️ **注意**：旧版 `install.sh` 不支持远程执行（会报 `/dev/fd` 路径错误）。请使用 `scripts/full-install.sh` 或先 `git clone`。
 
+#### 方式四：用 Hermes Agent runtime（与 OpenClaw 平行）
+
+```bash
+bash <(curl -fsSL https://raw.githubusercontent.com/wanikua/danghuangshang/main/install-hermes.sh)
+```
+
+**适用**：想用 Nous Research [Hermes Agent](https://github.com/NousResearch/hermes-agent)（Python，原生 20+ 平台、自带 RL 数据采集）跑同一套朝廷设定。详见 [EXTERNAL_HERMES.md](./EXTERNAL_HERMES.md)。两套 runtime 可并存。
+
 ### 3️⃣ 配置 + 启动
 
 **2. 按提示填入** LLM API Key + Discord Bot Token

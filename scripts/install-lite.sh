@@ -190,6 +190,7 @@ elif [ "$PLATFORM_NAME" = "discord" ]; then
     echo "https://discord.com/developers/applications"
     echo ""
     read -p "Bot Token: " BOT_TOKEN
+    read -p "Application ID (Discord Developer Portal 中 General Information 页): " APPLICATION_ID
     read -p "Server ID (Guild ID, 留空则所有服务器生效): " GUILD_ID
     echo ""
 
@@ -197,12 +198,16 @@ elif [ "$PLATFORM_NAME" = "discord" ]; then
         echo -e "${RED}✗ Bot Token 不能为空${NC}"
         exit 1
     fi
+    if [ -z "$APPLICATION_ID" ]; then
+        echo -e "${YELLOW}⚠ Application ID 留空,部分 OpenClaw 新版功能(slash 命令注册)会报错${NC}"
+    fi
 
 elif [ "$PLATFORM_NAME" = "webui" ]; then
     echo -e "${GREEN}✓ WebUI 模式不需要额外凭证${NC}"
     APP_ID=""
     APP_SECRET=""
     BOT_TOKEN=""
+    APPLICATION_ID=""
     GUILD_ID=""
 fi
 
@@ -227,6 +232,9 @@ if [ -f "$CONFIG_SOURCE" ]; then
 
     # 替换 Discord 凭证
     sed -i "s/YOUR_DISCORD_BOT_TOKEN/$BOT_TOKEN/g" "$CONFIG_DIR/$CONFIG_FILE" 2>/dev/null || true
+    sed -i "s/YOUR_SILIJIAN_BOT_TOKEN/$BOT_TOKEN/g" "$CONFIG_DIR/$CONFIG_FILE" 2>/dev/null || true
+    sed -i "s/YOUR_SILIJIAN_APPLICATION_ID/${APPLICATION_ID:-}/g" "$CONFIG_DIR/$CONFIG_FILE" 2>/dev/null || true
+    sed -i "s/YOUR_DISCORD_SERVER_ID/${GUILD_ID:-}/g" "$CONFIG_DIR/$CONFIG_FILE" 2>/dev/null || true
     sed -i "s/YOUR_GUILD_ID/${GUILD_ID:-}/g" "$CONFIG_DIR/$CONFIG_FILE" 2>/dev/null || true
 else
     echo -e "${YELLOW}⚠ 配置模板不存在，创建基础配置${NC}"
@@ -259,6 +267,7 @@ else
       "accounts": {
         "silijian": {
           "token": "$BOT_TOKEN",
+          "applicationId": "${APPLICATION_ID:-}",
           "name": "司礼监",
           "groupPolicy": "open"
         }

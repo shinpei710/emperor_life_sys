@@ -53,7 +53,8 @@ bash install-lite.sh
 |------|------|------|
 | **boluobobo-ai-court-tutorial** | 详细教程 | [查看](./boluobobo-ai-court-tutorial/) |
 | **projects/boluo-gui** | GUI 界面 | [查看](./projects/boluo-gui/) |
-| **OpenClaw** | 底层框架 | https://github.com/openclaw/openclaw |
+| **OpenClaw** | 底层框架(默认 runtime) | https://github.com/openclaw/openclaw |
+| **Hermes Agent** | 平行 runtime(可选) | https://github.com/NousResearch/hermes-agent |
 
 ---
 
